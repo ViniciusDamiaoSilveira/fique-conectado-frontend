@@ -1,10 +1,21 @@
-import { createHashRouter } from "react-router-dom";
+import { createBrowserRouter, createHashRouter } from "react-router-dom";
+import Login from "../pages/Login/login";
+import Register from "../pages/Register/register";
 
-const router = createHashRouter([
+const router = createBrowserRouter([
     {
-        element: <div> Hello World</div>,
-        path: '/'
-    }
+        path: '/',
+        element: <div />,
+    },
+    { 
+        path: "/login",
+        element: <Login /> 
+    },
+    { 
+        path: "/register",
+        element: <Register /> 
+    },
+
 ])
 
 export default router
