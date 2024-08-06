@@ -32,7 +32,10 @@ function Login() {
             password: password,
         }
         setPost(user)
-    }, [username, password])      
+    }, [username, password])     
+    
+    console.log(username);
+    
 
     return (
         <div style={{height: '100vh',display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
