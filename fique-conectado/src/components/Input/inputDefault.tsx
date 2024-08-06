@@ -2,11 +2,11 @@ import colors from '../../utils/colors';
 import { MdOutlineEmail, MdOutlinePhoneEnabled } from "react-icons/md";
 import './inputDefault.css'
 import { RiLockPasswordLine } from 'react-icons/ri';
-import { FormEventHandler } from 'react';
 import { FaRegUser } from 'react-icons/fa';
+import { CiSearch } from 'react-icons/ci';
 
-function InputDefault({type, width, height, placeholder, icon, typeIcon, value, setValue} : 
-    {type: string, width: string | number, height: string | number, placeholder: string, icon?: boolean, 
+function InputDefault({type, width, height, placeholder, borderRadius, icon, typeIcon, value, setValue} : 
+    {type: string, width: string | number, height: string | number, placeholder: string, borderRadius?: string | number | null, icon?: boolean, 
      typeIcon: string, value: string, setValue: any}) {
     return (
         <div style={{ display: 'flex', alignItems: 'center'
@@ -22,7 +22,8 @@ function InputDefault({type, width, height, placeholder, icon, typeIcon, value, 
                     width: width,
                     height: height,
                     fontSize: 15,
-                    paddingLeft: 15
+                    paddingLeft: 15,
+                    borderRadius: borderRadius != null ? borderRadius : 0
                  }}
                 value={value}
                 onChange={(e) => {
@@ -51,6 +52,12 @@ function InputDefault({type, width, height, placeholder, icon, typeIcon, value, 
             { icon == true  && typeIcon == 'phone' && (
                 <div style={{ position: 'absolute', marginLeft: `calc(${width}px - 20px)`}}>
                     <MdOutlinePhoneEnabled size={20} color={colors.GreyFont}/>
+                </div>
+            )}
+
+            { icon == true  && typeIcon == 'search' && (
+                <div style={{ position: 'absolute', marginLeft: `calc(${width}px - 20px)`}}>
+                    <CiSearch size={20} color={colors.GreyFont}/>
                 </div>
             )}
             
