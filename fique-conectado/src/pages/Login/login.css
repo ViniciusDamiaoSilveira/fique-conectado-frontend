@@ -3,5 +3,8 @@
 }
 .click:hover {
     color: #f7e09f;
-
 }
+
+.icon-size {
+    width: 20px;
+  }

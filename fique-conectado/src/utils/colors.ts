@@ -4,6 +4,7 @@ const colors = {
     "GreyBackground" : "#1F1F1F",
     "GreyComponent" : "#2C2C2C",
     "GreyInput" : '#3A3A3A',
+    "GreyPost" : "#232323",
     "GreyFont" : '#6E6E6E',
     "White" : "#FFFFFF  "
 }
