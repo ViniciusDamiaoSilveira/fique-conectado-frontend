@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { UserLocalAxios } from "../../api/local/userAPI";
 import UserRegister from "../../models/user/userRegister";
 import { redirect } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function Register() {
     const [post, setPost] = useState<UserRegister>();
@@ -13,12 +14,41 @@ function Register() {
     const [password, setPassword] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [phone, setPhone] = useState<string>("");
+    const [isLoading, setIsLoading] = useState<boolean | undefined>(false)
+    
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
+        background: colors.GreyComponent,
+        color: colors.GreyFont,
+      });
 
     async function onSubmit() {
         try {
+            setIsLoading(true)
             await UserLocalAxios('User/Register', 'POST', null, post).then();
-        } catch {
-            console.log('erro');
+            Toast.fire({
+                icon: "success",
+                title: "Realize o login!",
+                willOpen: () => {
+                    setIsLoading(false)
+                },
+                willClose: () => {
+                    window.location.href = '/login'
+                }
+              });
+
+        } catch(e: any) {
+            Toast.fire({
+                title: e.message,
+                icon: 'error',
+                willOpen: () => {
+                    setIsLoading(false)
+                },
+              });
         }
     }    
 
@@ -50,14 +80,13 @@ function Register() {
 
                     <div style={{ display: "flex", flexDirection: "column", gap: 30 }}>
                         <InputDefault type="text" width={355} height={"45px"} placeholder="Nome de usuário" icon={true} typeIcon="user" value={username} setValue={setUsername}/>
-                        <InputDefault type="password" width={355} height={"45px"} placeholder="Senha" icon={true} typeIcon="password" value={password} setValue={setPassword}/>
+                        <div>
+                            <InputDefault type="password" width={355} height={"45px"} placeholder="Senha" icon={true} typeIcon="password" value={password} setValue={setPassword}/>
+                            <p style={{ color: colors.GreyFont, fontSize: 13, width: 355, marginBottom: 0 }}> * A senha deve conter no mínimo 8 caracteres, contendo números, letras e caracteres especiais</p>
+                        </div>
                         <InputDefault type="text" width={355} height={"45px"} placeholder="Email" icon={true} typeIcon="email" value={email} setValue={setEmail}/>
                         <InputDefault type="number" width={355} height={"45px"} placeholder="Telefone" icon={true} typeIcon="phone" value={phone} setValue={setPhone}/>
                     </div>
-                   
-                    
-
-                    {/* Fazer componente de botão */}
 
                     <div style={{
                         display: 'flex',
@@ -67,7 +96,7 @@ function Register() {
                         <ButtonDefault 
                         width={370} height={'60px'} bgColor={colors.Yellow} 
                         text="Cadastrar" fontSize="16px" border={null} icon={false}
-                        onClick={() => onSubmit()}
+                        onClick={() => onSubmit()} loading={isLoading}
                         />
                     </div>
 

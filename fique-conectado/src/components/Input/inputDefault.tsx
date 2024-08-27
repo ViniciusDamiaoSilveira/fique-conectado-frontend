@@ -3,7 +3,7 @@ import { MdOutlineEmail, MdOutlinePhoneEnabled } from "react-icons/md";
 import './inputDefault.css'
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { FaRegUser } from 'react-icons/fa';
-import { CiSearch } from 'react-icons/ci';
+import { CiCalendarDate, CiSearch } from 'react-icons/ci';
 
 function InputDefault({type, width, height, placeholder, borderRadius, icon, typeIcon, value, setValue} : 
     {type: string, width: string | number, height: string | number, placeholder: string, borderRadius?: string | number | null, icon?: boolean, 
@@ -58,6 +58,12 @@ function InputDefault({type, width, height, placeholder, borderRadius, icon, typ
             { icon == true  && typeIcon == 'search' && (
                 <div style={{ position: 'absolute', marginLeft: `calc(${width}px - 20px)`}}>
                     <CiSearch size={20} color={colors.GreyFont}/>
+                </div>
+            )}
+
+            { icon == true  && typeIcon == 'date' && (
+                <div style={{ position: 'absolute', marginLeft: `calc(${width}px - 20px)`}}>
+                    <CiCalendarDate size={20} color={colors.GreyFont}/>
                 </div>
             )}
             

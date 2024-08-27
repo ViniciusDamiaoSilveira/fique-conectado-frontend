@@ -4,6 +4,15 @@ import './index.css'
 import { RouterProvider } from 'react-router-dom'
 import router from './router/router'
 
+declare module "react" {
+  namespace JSX {
+    interface IntrinsicElements {
+      'swiper-container': any,
+      'swiper-slide': any,
+    }
+  }
+}
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <RouterProvider router={router}/>

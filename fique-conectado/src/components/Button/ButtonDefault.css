@@ -7,3 +7,12 @@
     background-color: #fdce4b;
     color: rgba(0, 0, 0, 0.856);
 }
+
+#noColorBtn {
+    background-color: transparent;
+    color: white;
+}
+
+#noColorBtn:hover {
+    color: rgba(255, 255, 255, 0.652);
+}

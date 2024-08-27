@@ -2,7 +2,7 @@ import axiosInstanceTmdb from "./instance";
 import { VITE_TMDB_BEARER } from "../../utils/constants";
 
 
-export async function UserTmdbAxios(url: string) {
+export async function TmdbAxios(url: string) {
 
     let config = {
         headers: {
@@ -13,4 +13,4 @@ export async function UserTmdbAxios(url: string) {
     return axiosInstanceTmdb.get(url, config)
 }
 
-export default UserTmdbAxios;
+export default TmdbAxios;

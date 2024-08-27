@@ -8,21 +8,49 @@ import { useEffect, useState } from "react";
 import { UserLocalAxios } from "../../api/local/userAPI";
 import { jwtDecode } from "jwt-decode";
 import { NavLink } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function Login() {
     const [post, setPost] = useState<UserLogin>()
     const [username, setUsername] = useState<string>("")
     const [password, setPassword] = useState<string>("")
+    const [isLoading, setIsLoading] = useState<boolean | undefined>(false)
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
+        background: colors.GreyComponent,
+        color: colors.GreyFont,
+      });
 
     async function onSubmit() {
         try {
+            setIsLoading(true)
             const result = await UserLocalAxios('User/Login', 'POST', null, post).then()
             localStorage.setItem("Token", result?.data.token)
-            let token: string = localStorage.getItem("Token")!
-            console.log(jwtDecode(token));
+
+            Toast.fire({
+                icon: "success",
+                title: "Bem-vindo!",
+                willOpen: () => {
+                    setIsLoading(false)
+                },
+                willClose: () => {
+                    window.location.href = '/'
+                }
+              });
             
         } catch {
-            console.log('erro');
+            Toast.fire({
+                title: "Login incorreto",
+                icon: 'error',
+                willOpen: () => {
+                    setIsLoading(false)
+                },
+              });
         }
     }
 
@@ -34,9 +62,6 @@ function Login() {
         setPost(user)
     }, [username, password])     
     
-    console.log(username);
-    
-
     return (
         <div style={{height: '100vh',display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
             <div style={{position: 'absolute', top: 10, left: 10}}>
@@ -69,13 +94,13 @@ function Login() {
                     <div style={{
                         display: 'flex',
                         flexDirection: 'column',
-                        marginTop: 25,
+                        marginTop: 10,
                         gap: 10
                     }}>
                         <ButtonDefault 
                         width={370} height={'60px'} bgColor={colors.Yellow} 
                         text="Login" fontSize="16px" border={null} icon={false}
-                        onClick={() => onSubmit()}
+                        onClick={() => onSubmit()} loading={isLoading}
                         />
                         <p style={{fontWeight: 'normal', textAlign: "center", display: 'flex', justifyContent: 'center', gap: 10}}> 
                             Não tem uma conta?
@@ -83,10 +108,6 @@ function Login() {
                             style={{cursor: 'pointer', transition: '0.5s'}}> <u> Clique aqui </u> </NavLink>
                         </p>
                     </div>
-
-
-                    
-
             </div>
         </div>
     )

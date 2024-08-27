@@ -1,0 +1,4 @@
+.slider-item:hover {
+  opacity: 70%;
+  cursor: pointer;
+}
