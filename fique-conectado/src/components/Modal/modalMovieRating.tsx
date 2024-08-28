@@ -29,10 +29,11 @@ const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
     showConfirmButton: false,
-    timer: 1500,
+    timer: 1000,
     timerProgressBar: true,
     background: colors.GreyComponent,
     color: colors.GreyFont,
+    
 });
 
 function ModalMovieRating({open, handleClose, rating, setRating, comment, setComment, edit, ratingId} : 
@@ -61,7 +62,7 @@ function ModalMovieRating({open, handleClose, rating, setRating, comment, setCom
                 },
                 willClose: () => {
                     window.location.href = '/Filme/' + id
-                }
+                },
               });
 
         } catch(ex: any) {
@@ -77,16 +78,34 @@ function ModalMovieRating({open, handleClose, rating, setRating, comment, setCom
     }
 
     async function editRating() {
-        const user = jwtDecode<any>(token);
         const year = new Date().getFullYear()
         const month = new Date().getMonth()
         const day = new Date().getDate()
         let ratingPut: RatingPut = { ratingId: ratingId!, numRating: rating, comment: comment, date: new Date(year, month, day).toString() };
-    
-        console.log(ratingPut);
-        
-        const response = await UserLocalAxios('/Rating', 'PUT', token, ratingPut)
-        console.log(response);
+
+        try {
+            setIsLoading(true) 
+            await UserLocalAxios('/Rating', 'PUT', token, ratingPut)
+            Toast.fire({
+                icon: "success",
+                title: "Crítica editada!",
+                willOpen: () => {
+                    setIsLoading(false)
+                },
+                willClose: () => {
+                    window.location.href = '/Filme/' + id
+                },
+              });
+
+        } catch(ex: any) {
+            Toast.fire({
+                icon: "error",
+                title: ex.response.data.message,
+                willOpen: () => {
+                    setIsLoading(false)
+                }
+              });
+        }
     }
 
     useEffect(() => {

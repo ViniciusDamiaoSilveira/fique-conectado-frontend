@@ -56,9 +56,9 @@ function Post({username, comment, rating, entertainment} :
                 </div>
             </div>
 
-            <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', marginTop: 20}}>
-                <div style={{ display: 'flex', alignItems: 'center', color: colors.White, gap: 5 }}> <BiHeart size={23} style={{ marginLeft: 20 }}/> {20} </div>
-                <BiShare color={colors.White} size={23} style={{ marginRight: 20 }}/>
+            <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', marginTop: 10}}>
+                {/* <div style={{ display: 'flex', alignItems: 'center', color: colors.White, gap: 5 }}> <BiHeart size={23} style={{ marginLeft: 20 }}/> {20} </div> */}
+                <BiShare color={colors.White} size={23} style={{ marginRight: 20, paddingBottom: 10 }}/>
             </div>
         </div>
     )
