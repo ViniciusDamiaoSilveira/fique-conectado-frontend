@@ -1,0 +1,74 @@
+.autocomplete-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.autocomplete-input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 18px;
+    padding-left: 15px;
+    background-color: #2C2C2C;
+}
+
+.icon-search {
+    height: 40px;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    background-color: #2C2C2C;
+    margin-left: calc(400px - 20px);
+}
+
+.list-search-container {
+    position: absolute;
+    width: 415px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 2000;
+    list-style: none;
+    text-decoration: none;
+    overflow: auto;
+    background-color: #2C2C2C;
+    max-height: 250px;
+    min-height: fit-content;
+    padding: 0px;
+    margin: 0px;
+    margin-top: 165px;
+    color: #FFFFFF
+}
+
+.long-list {
+    margin-top: 295px;
+    min-height: 250px;
+}
+
+.list-search {
+    max-height: 200px; 
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background-color: #3A3A3A;
+    transition: 0.5s;
+    cursor: pointer;
+    text-decoration: none;
+    color: #FFFFFF;
+    gap: 20px;
+}
+
+.list-search:hover {
+    background-color: rgba(173, 129, 6, 0.139);
+}
+
+.search-title { 
+    margin-top: 0px;
+    margin-bottom: 0px;
+    background-color: #3A3A3A;
+}

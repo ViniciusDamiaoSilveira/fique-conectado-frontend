@@ -1,0 +1,21 @@
+.first-row-home {
+    width: 100%;
+    display: flex;
+    gap: 40px;
+}
+
+.navigator-home {
+    width: 270px;
+    margin-left: 20px;
+}
+
+.feed-home {
+    background-color: red;
+    width: 100%;
+    margin-right: 20px;
+}
+
+.slider-home {
+    width: calc(100% - 500px);
+    margin-right: 25px;
+}
