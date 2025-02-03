@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import './autocomplete.css'
-import TmdbAxios from '../../../api/tmdb/movieAPI'
-import MovieSearch from '../../../models/movie/movieSearch'
 import { useDebounce } from 'use-debounce'
 import { CiSearch } from 'react-icons/ci';
-import { NavLink } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import { VITE_TMDB_IMG } from '../../../utils/constants'
-import NotFound from '../../../images/Image-not-found.png' 
+import NotFound from '../../../images/Image-not-found.png'
+import MovieSearch from '../../../models/movie/movieSearch';
+import TmdbAxios from '../../../api/tmdb/movieAPI';
 
 
 interface autocompleteProps { 
@@ -18,22 +18,26 @@ const urlPoster = VITE_TMDB_IMG
 
 export default function Autocomplete(props: autocompleteProps) {
 
-    const [listMovies, setListMovies] = useState<MovieSearch[]>([])
-    const [searchMovie] = useDebounce(props.value, 500)
+    const [listEntertainment, setListEntertainment] = useState<any[]>([])
+    const [searchEntertainment] = useDebounce(props.value, 500)
+    const { type } = useParams()
   
-    async function searchMovieRequest(text: string) {
-        const url = `/search/movie?query=${text}&include_adult=false&language=pt-BR&page=1`
+    async function searchEntertainmentRequest(text: string) {
+        let type_query;
+        if (type == 'series') type_query = 'tv'
+        if (type == 'filmes') type_query = 'movie'
+
+
+        const url = `/search/${type_query}?query=${text}&include_adult=false&language=pt-BR&page=1`
         const response = await TmdbAxios(url)
-        setListMovies(response.data.results)
+        setListEntertainment(response.data.results)
     }
 
     useEffect(() => {
-        if (searchMovie != '') {
-        searchMovieRequest(searchMovie)
+        if (searchEntertainment != '') {
+        searchEntertainmentRequest(searchEntertainment)
         }
-    }, [searchMovie])
-
-    console.log(listMovies);
+    }, [searchEntertainment])
 
     return (
         <div className="autocomplete-container">
@@ -44,12 +48,12 @@ export default function Autocomplete(props: autocompleteProps) {
                 onChange={(e) => {
                     props.setValue(e.currentTarget.value)
                     if (e.currentTarget.value === '') {
-                    setListMovies([])
+                    setListEntertainment([])
                     } 
                 }}
                 onBlur={() => {
                 setTimeout(() => {
-                    setListMovies([])
+                    setListEntertainment([])
                     props.setValue('')
                 }, 200);
                 }}
@@ -59,18 +63,18 @@ export default function Autocomplete(props: autocompleteProps) {
                 <CiSearch size={23} color={'#6E6E6E'}/>
             </div>
 
-            { listMovies && (
-                <ul className={`list-search-container ${listMovies.length > 1 ? 'long-list' : ''}`}>
+            { listEntertainment && (
+                <ul className={`list-search-container ${listEntertainment.length > 1 ? 'long-list' : ''}`}>
                 {
-                    listMovies.map(movies => {
+                    listEntertainment.map(entertainment => {
                         return (
-                        <NavLink to={'/Filme/' + movies.id} className='list-search'>
+                        <NavLink to={'/Filme/' + entertainment.id} className='list-search'>
                             <img style={{ width: 80, height: 120 }} 
-                                src={`${movies.poster_path ? `${urlPoster}${movies.poster_path}` : NotFound}`} 
+                                src={`${entertainment.poster_path ? `${urlPoster}${entertainment.poster_path}` : NotFound}`} 
                                 alt="poster" 
                             />
                                 <p className="search-title"> 
-                                    {movies.title} </p>
+                                    {entertainment.title || entertainment.name} </p>
                             </NavLink>
                         )
                     })

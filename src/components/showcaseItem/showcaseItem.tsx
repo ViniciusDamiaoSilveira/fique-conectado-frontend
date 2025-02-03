@@ -1,9 +1,21 @@
 import { ClipLoader } from "react-spinners";
 import colors from "../../utils/colors";
-import './showcaseItem.css'
 import { NavLink } from "react-router-dom";
+import { useEffect } from "react";
+import NotFound from '../../images/Image-not-found.png'
+
+import './showcaseItem.css'
 
 function ShowcaseItem({id, imgUrl, width, loading} : {id: string | null, imgUrl: string | null, width: string | number, loading: boolean}) {
+    
+    useEffect(() => {
+        if (imgUrl?.indexOf('null')! >= 0) {
+            imgUrl = NotFound
+            console.log('caiu');
+            
+        }
+    }, [imgUrl])
+    
     return (
         <NavLink to={`/Filme/${id}`}
         className="showcase-item"
@@ -21,7 +33,7 @@ function ShowcaseItem({id, imgUrl, width, loading} : {id: string | null, imgUrl:
                 className="img-item"
                 style={{
                     backgroundImage: imgUrl ? `url(${imgUrl})` : 'url()',
-                    backgroundColor: !imgUrl ? colors.Black : '',
+                    backgroundColor: !imgUrl ? colors.Black : imgUrl,
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center',

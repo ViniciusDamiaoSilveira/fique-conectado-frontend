@@ -17,8 +17,19 @@
     color: white;
 }
 
-.conectado {
+.conectado-filmes {
     color: #FFBF15;
+    transition: 0.5s;
+}
+
+.conectado-series {
+    color: #2F64CF;
+    transition: 0.5s;
+}
+
+.conectado-jogos {
+    color: #13F54C;
+    transition: 0.5s;
 }
 
 .search-bar {

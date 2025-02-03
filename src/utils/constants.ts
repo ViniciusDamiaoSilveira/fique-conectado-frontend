@@ -3,3 +3,7 @@ export const VITE_TMDB_KEY = "api_key=4539642e33a534978ab8153fd0e38c3e";
 export const VITE_TMDB_API = "https://api.themoviedb.org/3/";
 export const VITE_TMDB_BEARER = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NTM5NjQyZTMzYTUzNDk3OGFiODE1M2ZkMGUzOGMzZSIsInN1YiI6IjY1ZTA5MzJhYTgwNjczMDE2MWE4NWRiZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Pd7lKLcGCmism7kTlgmzEixk1TQqYSY_9CQJAykE5ZQ";
 export const VITE_TMDB_IMG = "https://image.tmdb.org/t/p/w500/";
+export const VITE_IGDB_CLIENT_ID = "vtjs2z52g6mwsgypz6sivn77vbdr3u"
+export const VITE_IGDB_CLIENT_SECRET = "8s4bsfju0kz80ddrv8yh2qh3by95us"
+export const VITE_IGDB_API_TOKEN_URL =  `https://id.twitch.tv/oauth2/token?client_id=${VITE_IGDB_CLIENT_ID}&client_secret=${VITE_IGDB_CLIENT_SECRET}&grant_type=client_credentials`
+export const VITE_IGBD_API = "https://cors-anywhere.herokuapp.com/https://api.igdb.com/v4/"

@@ -24,3 +24,18 @@
     padding: 10px;
     --swiper-navigation-size: 20px;
 }
+
+.title-filmes {
+    color: #FFBF15;
+    transition: 0.5s;
+}
+
+.title-series {
+    color: #2F64CF;
+    transition: 0.5s;
+}
+
+.title-jogos {
+    color: #13F54C;
+    transition: 0.5s;
+}
