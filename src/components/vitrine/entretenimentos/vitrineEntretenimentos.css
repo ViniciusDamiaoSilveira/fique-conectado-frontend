@@ -1,0 +1,37 @@
+.vitrine-item-entertainment {
+    height: 200px;
+    width: 130px;
+    overflow: hidden;
+    position: relative;
+}
+
+.image-item {
+    width: 100%;
+    height: 100%;
+}
+
+.entertainment-item-info {
+    width: 100%;
+    height: 100%;
+    bottom: -110%;
+    right: 0;
+    position: absolute;
+    background: #3f3f3f96;
+    backdrop-filter: blur(5px);
+    transition: 0.5s;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    padding-bottom: 15px;
+    gap: 5px;
+}
+
+.vitrine-item-entertainment:hover .entertainment-item-info {
+    bottom: 0;
+}
+
+.entertainment-item-title {
+    color: white;
+    text-align: center;
+}

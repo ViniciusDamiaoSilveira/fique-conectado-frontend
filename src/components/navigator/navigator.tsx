@@ -2,15 +2,17 @@ import { BiMovie } from "react-icons/bi";
 import { PiMonitorBold } from "react-icons/pi";
 import { RiGamepadLine } from "react-icons/ri";
 import './navigator.css'
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 
 function Navigator() {
+    const { type } = useParams()
+
     return (
         <div className="navigator-container">
-            <ul className="navigator-list">
-                <NavLink className='item'to={'/'}>
-                    <NavLink className={({ isActive }) => (isActive ? 'active-custom-movie' : 'inactive')} to={'/'} />
+            <ul className={`navigator-list ${type}`}>
+                <NavLink className='item' to={'/filmes'}>
+                    <NavLink className={({ isActive }) => (isActive ? 'active-custom-movie' : 'inactive')} to={'/filmes'} />
                     <BiMovie size={23}/> <p> Filmes </p> 
                 </NavLink>
                     <NavLink className={({ isActive }) => (isActive ? 'active-custom-serie' : 'inactive')} 

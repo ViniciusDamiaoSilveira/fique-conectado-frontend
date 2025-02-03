@@ -10,12 +10,19 @@
 }
 
 .feed-home {
-    background-color: red;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     margin-right: 20px;
 }
 
 .slider-home {
-    width: calc(100% - 500px);
+    width: calc(100% - 800px);
     margin-right: 25px;
+}
+
+.vitrine-home {
+    height: 300px;
+    width: 1525px;
 }
