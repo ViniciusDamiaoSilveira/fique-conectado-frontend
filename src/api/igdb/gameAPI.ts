@@ -1,6 +1,6 @@
-import axiosInstanceTmdb from "./instance";
-import { VITE_IGDB_API_TOKEN_URL, VITE_IGDB_CLIENT_ID } from "../../utils/constants";
 import axios from "axios";
+import axiosInstanceIgdb from "./instance";
+import { VITE_IGDB_API_TOKEN_URL, VITE_IGDB_CLIENT_ID } from "../../utils/constants";
 
  
 export async function IgdbAxios(url: string, body?: string) {
@@ -14,8 +14,8 @@ export async function IgdbAxios(url: string, body?: string) {
         }
     }
     
-    if (body) return axiosInstanceTmdb.post(url, body, config)
-    return  axiosInstanceTmdb.post(url, config)
+    if (body) return axiosInstanceIgdb.post(url, body, config)
+    return  axiosInstanceIgdb.post(url, config)
 }
 
 export default IgdbAxios;
