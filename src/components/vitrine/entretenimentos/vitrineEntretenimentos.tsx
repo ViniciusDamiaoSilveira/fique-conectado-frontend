@@ -38,16 +38,16 @@ export default function VitrineEntretenimentos(props: vitrineProps) {
             {
                 props.items.map((value) => 
                     <SwiperSlide>
-                        <div className={`vitrine-item-entertainment item-${type}`}>
-                            <img src={value.img} className="image-item" />
-                            <div className="entertainment-item-info">
-                                <p className="entertainment-item-title"> {value.title} </p>
-                                { type != 'jogos' && (
-                                    <Rating defaultValue={value.rating} precision={0.5} readOnly size="small"
-                                    emptyIcon={<IoStar style={{ opacity: 1, height: 16 }} fontSize="inherit" />}/>
-                                )}
+                        <NavLink to={`/${type}/${value.id}`} >
+                            <div className={`vitrine-item-entertainment item-${type}`}>
+                                <img src={value.img} className="image-item" />
+                                <div className="entertainment-item-info">
+                                    <p className="entertainment-item-title"> {value.title} </p>
+                                        <Rating defaultValue={value.rating} precision={0.5} readOnly size="small"
+                                        emptyIcon={<IoStar style={{ opacity: 1, height: 16 }} fontSize="inherit" />}/>
+                                </div>
                             </div>
-                        </div>
+                        </NavLink>
                     </SwiperSlide>
                     
                 )

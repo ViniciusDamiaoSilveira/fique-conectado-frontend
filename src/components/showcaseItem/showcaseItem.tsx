@@ -1,23 +1,14 @@
 import { ClipLoader } from "react-spinners";
+import { NavLink, useParams } from "react-router-dom";
 import colors from "../../utils/colors";
-import { NavLink } from "react-router-dom";
-import { useEffect } from "react";
-import NotFound from '../../images/Image-not-found.png'
 
 import './showcaseItem.css'
 
 function ShowcaseItem({id, imgUrl, width, loading} : {id: string | null, imgUrl: string | null, width: string | number, loading: boolean}) {
-    
-    useEffect(() => {
-        if (imgUrl?.indexOf('null')! >= 0) {
-            imgUrl = NotFound
-            console.log('caiu');
-            
-        }
-    }, [imgUrl])
+    const { type } = useParams();
     
     return (
-        <NavLink to={`/Filme/${id}`}
+        <NavLink to={`/${type}/${id}`}
         className="showcase-item"
         style={{
             height: 400,

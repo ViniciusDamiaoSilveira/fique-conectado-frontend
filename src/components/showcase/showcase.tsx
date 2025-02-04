@@ -10,31 +10,29 @@ import { useParams } from "react-router-dom";
 import 'swiper/css';
 import 'swiper/css/navigation';
 import './showcase.css';
+import { getShowcase } from "../../utils/requests/requestShowcase";
 
+interface entertainmentProps {
+  id: string,
+  img: string,
+}
 
 function Showcase() {
     
-    const [listMovies, setListMovies] = useState<MovieSearch[]>([])
+    const [listMovies, setListMovies] = useState<entertainmentProps[]>([])
     const { type } = useParams()
 
     async function getListMovies() {
-        let type_query;
-        if (type == 'series') type_query = 'tv'
-        if (type == 'filmes') type_query = 'movie'
-
-        const page = Math.floor(Math.random() * (35 - 1) + 1)
-        const urlShowcase = `discover/${type_query}?include_adult=false&include_video=false&language=pt-BR&sort_by=popularity.desc&with_origin_country=BR&with_original_language=pt&page=${page}`
-        const response = await TmdbAxios(urlShowcase)
-
-        setListMovies(response.data.results);
-
-        listMovies.map((movie) => {
-          
-        })
+      const results = await getShowcase(type!);
+      console.log('resultados:', results);
+      
+      setListMovies(results);
     }
 
     useEffect(() => {
         getListMovies()
+        console.log(listMovies);
+        
     }, [])
 
     useEffect(() => {
@@ -54,7 +52,7 @@ function Showcase() {
           init
         >
           { listMovies.map(movie => 
-              <SwiperSlide key={movie.id}> <ShowcaseItem id={movie.id} width={'100%'} imgUrl={`${VITE_TMDB_IMG}${movie.poster_path}`} loading={false}/> </SwiperSlide>
+              <SwiperSlide key={movie.id}> <ShowcaseItem id={movie.id} width={'100%'} imgUrl={movie.img} loading={false}/> </SwiperSlide>
           )}
 
           { listMovies.length == 0 && (
