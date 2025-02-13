@@ -1,0 +1,30 @@
+.btn-prime {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.background-white {
+    background-color: white;
+}
+
+.border-white {
+    border: 1px solid white;
+}
+
+.text-white {
+    color: white;
+}
+
+.font-small {
+    font-size: 16px;
+}
+
+.background-transparent {
+    background-color: transparent;
+}

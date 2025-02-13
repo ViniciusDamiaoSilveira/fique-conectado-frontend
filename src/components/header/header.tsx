@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Autocomplete from '../inputs/autocomplete/autocomplete'
 import './header.css'
-import { useParams } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 
 export default function Header() {
     const { type } = useParams()
@@ -9,9 +9,9 @@ export default function Header() {
 
     return (
         <div className="header-container">
-            <div className="logo">
+            <NavLink to={`/${type}`} className="logo">
                 <span className='fique'> Fique </span> <span className={`conectado-${type}`}> Conectado</span>
-            </div>
+            </NavLink>
 
             <div className="search-bar">
                 <Autocomplete value={searchMovie} setValue={setSearchMovie}/>
