@@ -76,6 +76,10 @@ export default function Home() {
     }, [])
     
     useEffect(() => {
+        setLancamentos([])
+        setBest([])
+        setPopular([])
+
         if (type == 'filmes') {
             getMovies();
         }

@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import Entertainment from "../pages/Entertainment/Entertainment";
 
@@ -11,21 +11,10 @@ const router = createBrowserRouter([
         path: '/:type/:id',
         element: <Entertainment />
     },
-    { 
-        path: "/login",
-    },
-    { 
-        path: "/register",
-    },
     {
-        path: "/profile",
-    },
-    {
-        path: "/Filmes/:type",
-    },
-    {
-        path: "/Filme/:id",
-    },
+        path: "*",
+        element: <Navigate to="/filmes" replace />
+    }
 ])
 
 export default router

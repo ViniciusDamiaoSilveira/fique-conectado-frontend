@@ -7,3 +7,5 @@ export const VITE_IGDB_CLIENT_ID = "vtjs2z52g6mwsgypz6sivn77vbdr3u"
 export const VITE_IGDB_CLIENT_SECRET = "8s4bsfju0kz80ddrv8yh2qh3by95us"
 export const VITE_IGDB_API_TOKEN_URL =  `https://id.twitch.tv/oauth2/token?client_id=${VITE_IGDB_CLIENT_ID}&client_secret=${VITE_IGDB_CLIENT_SECRET}&grant_type=client_credentials`
 export const VITE_IGBD_API = "https://cors-anywhere.herokuapp.com/https://api.igdb.com/v4/"
+export const GOOGLE_KEY = "AIzaSyCMuY7Zmuuffm62DEC6QciVOTyy9zklBXo"
+export const GOOGLE_URL = `https://translation.googleapis.com/language/translate/v2?`
