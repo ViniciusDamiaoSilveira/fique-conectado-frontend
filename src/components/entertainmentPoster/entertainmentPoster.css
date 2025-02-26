@@ -1,0 +1,24 @@
+.poster-container {
+    width: 168px;
+    height: 380px;
+    z-index: 0;
+    transition: 0.5s;
+    text-decoration: none;
+}
+
+.poster-container:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.entertainment-poster-img {
+    width: 100%;
+    height: 280px;
+}
+
+.poster-name {
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    width: 100%;
+}

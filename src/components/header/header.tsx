@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Autocomplete from '../inputs/autocomplete/autocomplete'
 import './header.css'
 import { NavLink, useParams } from 'react-router-dom'
+import { FaUserFriends } from 'react-icons/fa'
 
 export default function Header() {
     const { type } = useParams()
@@ -18,7 +19,8 @@ export default function Header() {
             </div>
 
             <div className="user-area">
-                asdasdasdads
+                <FaUserFriends color='#3a3a3a' size={30}/>
+                <img src="https://lh3.googleusercontent.com/a/ACg8ocLRSHYtUGl6F5IysvxZL1DIegRF-baez1S_fJvjFjF6Be1QDg_C=s288-c-no" alt="" />
             </div>
         </div>
     )

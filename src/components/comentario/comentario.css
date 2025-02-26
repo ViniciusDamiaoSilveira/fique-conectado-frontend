@@ -5,6 +5,14 @@
     border-radius: 10px;
 }
 
+.comentario-grande .comentario-text {
+    font-size: 22px;
+}
+
+.comentario-grande .comentario-views {
+    font-size: 18px;
+}
+
 .comentario-perfil {
     padding-left: 15px;
     padding-top: 15px;

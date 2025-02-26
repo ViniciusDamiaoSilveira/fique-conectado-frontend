@@ -170,8 +170,7 @@ export async function GetMelhoresNacionaisSeries():Promise<entertainmentProps[]>
 export async function getPopularesJogos() {
     const url = "games";
     const body = `fields id, name, total_rating, cover.url;
-                    where total_rating_count > 400;
-                    sort rating desc;
+                    where total_rating_count > 500;
                     limit 50;`
 
     const response = IgdbAxios(url, body)
@@ -198,7 +197,7 @@ export async function getPopularesJogos() {
 export async function getMelhoresJogos() {
     const url = "games";
     const body = `fields id, name, total_rating, cover.url;
-                    where rating != null & total_rating_count > 100;
+                    where rating != null & total_rating_count > 1000;
                     sort rating desc;
                     limit 50;`
 

@@ -11,6 +11,7 @@ interface comentarioProps {
     entertainment: string,
     comentario: string,
     views: number,
+    size?: string,
 }
 
 export default function Comentario(props: comentarioProps) {
@@ -19,15 +20,10 @@ export default function Comentario(props: comentarioProps) {
         return new Intl.NumberFormat('pt-BR').format(number);
     }
 
-    function formatText(text: string): string {
-        if (text.length > 130) {
-            return text.substring(0, 130) + '...';
-        }
-        return text;
-    }
+
 
     return (
-        <div className="comentario-container">
+        <div className={`comentario-container comentario-${props.size}`}>
             <div className="comentario-perfil">
                 <div className="img-perfil"></div>
                 
@@ -38,7 +34,7 @@ export default function Comentario(props: comentarioProps) {
             </div>
 
             <div className="comentario-text">
-                {formatText(props.comentario)}
+                {props.comentario}
             </div>
 
             <div className="comentario-views">

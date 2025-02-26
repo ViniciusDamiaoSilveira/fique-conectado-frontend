@@ -114,8 +114,9 @@ export default function Home() {
                     <div className="vitrine-home">
                         <VitrineEntretenimentos
                             title={type == 'jogos' ? "Seleção de nacionais" : "Lançamentos nacionais"}
-                            subtitle=""
+                            subtitle={type == 'jogos' ? "" : "Todos os lançamentos"}
                             items={lancamentos}
+                            link="lancamentos"
                             />
                     </div>
 
@@ -124,14 +125,16 @@ export default function Home() {
                             title={type == 'jogos' ? "Populares" :  "Populares nacionais"}
                             subtitle="Todos os populares"
                             items={popular}
+                            link="populares"
                             />
                     </div>
 
                     <div className="vitrine-home">
                         <VitrineEntretenimentos
-                            title="Melhor avaliados"
+                            title="Melhores avaliados"
                             subtitle="Todos os melhores avaliados"
                             items={best}
+                            link="melhores"
                             />
                     </div>
                 </div>
