@@ -10,7 +10,8 @@ import { IoStar } from "react-icons/io5"
 interface vitrineProps {
     title: string,
     subtitle: string,
-    items: any[]
+    items: any[],
+    link: string,
 }
 
 export default function VitrineEntretenimentos(props: vitrineProps) {
@@ -20,7 +21,7 @@ export default function VitrineEntretenimentos(props: vitrineProps) {
         <div className="vitrine-container">
             <div className="vitrine-text">
                 <h1 className="vitrine-title"> {props.title} </h1>
-                <NavLink to={"/"} className={`vitrine-subtitle subtitle-${type}`}> {props.subtitle} </NavLink>
+                <NavLink to={`${props.link}/listagem`} className={`vitrine-subtitle subtitle-${type}`}> {props.subtitle} </NavLink>
             </div>
 
 

@@ -4,11 +4,12 @@ import axios from "axios";
 import { GOOGLE_KEY, GOOGLE_URL, VITE_TMDB_IMG } from "../constants";
 import { getPlatformLogo } from "../platforms";
 
-import NotFoundMovie from "../../images/NotFoundMovie.svg"
-import NotFoundSerie from "../../images/NotFoundSerie.svg"
-import NotFoundGame from "../../images/NotFoundGame.svg"
 import Other from "../../images/Other-icon.png";
 import TmdbAxios from "../../api/tmdb/movieAPI";
+
+import NotFoundMovie from "../../images/NotFoundMovieLarge.svg"
+import NotFoundSerie from "../../images/NotFoundSerieLarge.svg"
+import NotFoundGame from "../../images/NotFoundGameLarge.svg"
 
 
 interface entertaimentProps {
@@ -116,7 +117,7 @@ export async function getEntertainmentGame(id: string) {
     result.poster = result_query.cover.url
     result.background = result_query.screenshots[0].url
     result.description = translate_description,
-    result.rating = result_query.rating
+    result.rating = parseFloat(((result_query.rating / 10) / 2).toFixed(2))
     result.genres = genres
     result.plataformas = plataformas
     result.release = new Date(result_query.created_at * 1000).toLocaleDateString()
@@ -149,8 +150,15 @@ export async function getEntertainmentMovie(id: string) {
     let hora_definitiva = hora.toString().split(".")[0]
     let minuto_definitivo = (parseFloat(`0.${hora.toString().split(".")[1]}`) * 60).toFixed(0)
 
+    let img: string;
+    if (response.data.poster_path) {
+        img = `${VITE_TMDB_IMG}${response.data.poster_path}`
+    } else {
+        img = NotFoundMovie
+    }
+
     result.title = response.data.title
-    result.poster = `${VITE_TMDB_IMG}${response.data.poster_path}`
+    result.poster = img
     result.background = `${VITE_TMDB_IMG}${response.data.backdrop_path}`
     result.description = response.data.overview
     result.rating = parseFloat((response.data.vote_average / 2).toFixed(1))
@@ -187,8 +195,16 @@ export async function getEntertainmentTV(id: string) {
         numberSeasons.push({id: i, name: `Temporada ${i}`})
     }
 
+    let img: string;
+    
+    if (response.data.poster_path) {
+        img = `${VITE_TMDB_IMG}${response.data.poster_path}`
+    } else {
+        img = NotFoundSerie
+    }
+
     result.title = response.data.name
-    result.poster = `${VITE_TMDB_IMG}${response.data.poster_path}`
+    result.poster = img
     result.background = `${VITE_TMDB_IMG}${response.data.backdrop_path}`
     result.description = response.data.overview
     result.rating = parseFloat((response.data.vote_average / 2).toFixed(1))

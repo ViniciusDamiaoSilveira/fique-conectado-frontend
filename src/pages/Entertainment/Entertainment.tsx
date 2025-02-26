@@ -12,6 +12,8 @@ import Header from "../../components/header/header";
 import "./Entertainment.css"
 import ModalTemporada from "../../components/modals/modalTemporada";
 import TmdbAxios from "../../api/tmdb/movieAPI";
+import Comentario from "../../components/comentario/comentario";
+import { lista_comentarios } from "../../utils/comentariosMock";
 
 
 interface entertainmentProps {
@@ -50,7 +52,7 @@ export default function Entertainment() {
         if (type == "series") {
             const result = await getEntertainmentTV(id!)
             setEntertainment(result)
-        } 
+        }
     }
 
     async function getEpisodes(id: string, season: number) {
@@ -70,8 +72,9 @@ export default function Entertainment() {
 
     useEffect(() => {
         getEntertainment();
-    }, [id])    
-
+    }, [id])
+    
+    
     return (
         <div className="entertainment-container">
             <Header />
@@ -88,7 +91,7 @@ export default function Entertainment() {
                 <div className="entertainment-texts">
                     <div className="entertainment-title">
                         <h1> {entertainment?.title} </h1>
-                        <Rating defaultValue={4} precision={0.5} readOnly size="large"
+                        <Rating value={entertainment?.rating ? entertainment.rating : 0 } precision={0.5} readOnly size="large"
                                         emptyIcon={<IoStar style={{ opacity: 1, height: 28 }} fontSize="inherit" />}/>
                     </div>
 
@@ -216,6 +219,28 @@ export default function Entertainment() {
                     )}
                 </div>
             )}
+
+        <div className="ratings-entertainment">
+            <h1 style={{ marginLeft: 25 }}> Comentários </h1>
+
+            <div className="ratings">
+                {
+                    lista_comentarios.map((value) => 
+                        <Comentario
+                            id="asdjnasdjnas"
+                            user="Vinícius Silveira"
+                            typeEntertainment="Filmes"
+                            entertainment="Oppenheimer"
+                            comentario="Lorem ipsum dolor sit amet, consectetur adipiscing elit das asfsafasfasfag sdf afasf saf asfasfas fasdasdsafagsgasfasfgagagasasgagaggas"
+                            rating={4.5}
+                            views={10000}
+                            size="grande"
+                        />
+                    )
+                }
+            </div>
+            
+        </div>
         
         <ModalTemporada 
             open={open}

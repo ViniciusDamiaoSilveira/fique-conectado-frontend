@@ -14,6 +14,13 @@ interface vitrineProps {
     items: any[]
 }
 
+function formatText(text: string): string {
+    if (text.length > 130) {
+        return text.substring(0, 130) + '...';
+    }
+    return text;
+}
+
 export default function VitrineComentario(props: vitrineProps) {
     const { type } = useParams()
 
@@ -45,7 +52,7 @@ export default function VitrineComentario(props: vitrineProps) {
                                 user="Vinícius Silveira"
                                 typeEntertainment="Filmes"
                                 entertainment="Oppenheimer"
-                                comentario="Lorem ipsum dolor sit amet, consectetur adipiscing elit das asfsafasfasfag sdf afasf saf asfasfas fasdasdsafagsgasfasfgagagasasgagaggas"
+                                comentario={formatText("Lorem ipsum dolor sit amet, consectetur adipiscing elit das asfsafasfasfag sdf afasf saf asfasfas fasdasdsafagsgasfasfgagagasasgagaggas")}
                                 rating={4.5}
                                 views={10000}
                                 
