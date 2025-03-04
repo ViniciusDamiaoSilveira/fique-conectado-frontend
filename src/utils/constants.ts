@@ -9,3 +9,4 @@ export const VITE_IGDB_API_TOKEN_URL =  `https://id.twitch.tv/oauth2/token?clien
 export const VITE_IGBD_API = "https://cors-anywhere.herokuapp.com/https://api.igdb.com/v4/"
 export const GOOGLE_KEY = "AIzaSyCMuY7Zmuuffm62DEC6QciVOTyy9zklBXo"
 export const GOOGLE_URL = `https://translation.googleapis.com/language/translate/v2?`
+export const LOCAL_IMG = `https://localhost:7299/Uploads/`

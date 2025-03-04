@@ -46,3 +46,12 @@
     height: 200px;
     width: 400px;
 }
+
+.no-comment-vitrine {
+    color: white;
+    font-size: 30px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    padding-left: 25px;
+}

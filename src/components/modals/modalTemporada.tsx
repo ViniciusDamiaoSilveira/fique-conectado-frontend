@@ -33,18 +33,12 @@ export default function ModalTemporada(props: modalProps) {
             return text.substring(0, 205 ) + '...';
         }
         return text;
-    }
-
-    console.log(props.listEpisodes);
-    
+    }    
 
     return (
         <Modal
             open={props.open}
-            onClose={props.handleClose}
-            aria-labelledby="parent-modal-title"
-            aria-describedby="parent-modal-description"
-            >
+            onClose={props.handleClose}>
             <Box sx={{ ...style, color: "white"}}>
                 <h1 className="title-modal"> Lista de episódios </h1>
 

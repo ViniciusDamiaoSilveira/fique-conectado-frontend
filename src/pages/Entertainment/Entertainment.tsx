@@ -13,7 +13,13 @@ import "./Entertainment.css"
 import ModalTemporada from "../../components/modals/modalTemporada";
 import TmdbAxios from "../../api/tmdb/movieAPI";
 import Comentario from "../../components/comentario/comentario";
-import { lista_comentarios } from "../../utils/comentariosMock";
+import { FaRegHeart, FaRegStar } from "react-icons/fa";
+import { UserLocalAxios } from "../../api/local/userAPI";
+import { BiSolidDislike } from "react-icons/bi";
+import Swal from "sweetalert2";
+import ModalRating from "../../components/modals/modalRating";
+import { LiaEdit } from "react-icons/lia";
+import { FaRegTrashCan } from "react-icons/fa6";
 
 
 interface entertainmentProps {
@@ -32,11 +38,40 @@ interface entertainmentProps {
     numberSeason?: any[]
 }
 
+interface listProps {
+    id: string,
+    name: string,
+    icon: any,
+    isIn: boolean,
+}
+
+interface commentProps {
+    id: string,
+    numRating: number,
+    comment: string,
+    date: string,
+}
+
+interface comentariosProps {
+    id: string,
+    name: string,
+    typeEntertainment: string,
+    entertainmentName: string,
+    numRating: number,
+    comment: string,
+    views: number,
+}
+
 export default function Entertainment() {
     const { type, id } = useParams();
     const [entertainment,  setEntertainment] = useState<entertainmentProps>()
-    const [open, setOpen] = useState(false)
+    const [openTemporada, setOpenTemporada] = useState(false)
     const [listEpisodes, setListEpisodes] = useState()
+    const [lists, setLists] = useState<listProps[]>([])
+    const [comment, setComment] = useState<commentProps>()
+    const [openComment, setOpenComment] = useState<boolean>(false)
+    const [listComments, setListComments] = useState<comentariosProps[]>([])
+ 
  
     async function getEntertainment() {
         if (type == "jogos") {
@@ -59,11 +94,146 @@ export default function Entertainment() {
         const response = await TmdbAxios(`tv/${id}/season/${season}?language=pt-BR`)
         let result_query = response.data.episodes
         setListEpisodes(result_query)
-        setOpen(true)
+        setOpenTemporada(true)
+    }
+
+    async function getEntertainmentInList() {
+        const userId = "8c4cbab5-0275-409a-9b84-07cf49623bed"
+        let listUser: listProps[] = [];
+
+        let response = await UserLocalAxios(`List/user/${userId}/${type}`, "GET", "")
+
+        let promises = response?.data.map(async (value: listProps) => {  
+
+            let exist = await UserLocalAxios(`ListEntertainment/${value.id}/${id}`, "GET", "")
+            
+            if (value.name == "Não gostei") {
+                let colorIcon = "#8B2626"
+                listUser.push({
+                    id: value.id,
+                    name: "naoGostei", 
+                    icon: <BiSolidDislike size={21} color={`${exist?.data ? "#FFFFFF" : colorIcon}`}/>, 
+                    isIn: exist?.data})                
+            } else if (value.name == "Curtidos") {
+                let colorIcon = "#1B315C"
+                listUser.push({
+                    id: value.id, 
+                    name: value.name, 
+                    icon: <FaRegHeart size={21} color={`${exist?.data ? "#FFFFFF" : colorIcon}`}/>, 
+                    isIn: exist?.data})
+            } else {
+                let colorIcon = "#EB8817"
+                listUser.push({
+                    id: value.id, 
+                    name: value.name, 
+                    icon: <FaRegStar size={21} color={`${exist?.data ? "#FFFFFF" : colorIcon}`}/>, 
+                    isIn: exist?.data})
+            }
+        })
+        
+        await Promise.all(promises);
+
+        listUser.sort((a: any, b: any) => {
+            if (a.name === 'Favoritos') return -1;
+            if (b.name === 'Favoritos') return 1;
+            return a.name.localeCompare(b.name);
+        });
+        
+        setLists(listUser)
+    }
+
+    async function addOrRemoveList(listId: string, isIn: boolean) {
+        let body: {listId: string, entertainmentId: string} = {listId: listId, entertainmentId: id!}
+
+        Swal.fire({
+            title: `${isIn ? "Deseja remover o entretenimento da lista?" : "Deseja adicionar o entretenimento na lista?"}`,
+            showCancelButton: true,
+            confirmButtonText: `${isIn ? "Remover" : "Adicionar"}`,
+            cancelButtonText: `Cancelar`,
+            background: "#3A3A3A",
+            color: "#ffffff",
+            confirmButtonColor: `${isIn ? "#8B2626" : "#228B22"}`,
+            width: 600
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+                if (isIn) {
+                    await UserLocalAxios(`ListEntertainment/${listId}/${id}`, "DELETE", "", body)
+
+                    Swal.fire({
+                        title: "Removido com sucesso!",
+                        icon: "success",
+                        background: "#3A3A3A",
+                        color: "#FFFFFF",
+                        confirmButtonColor: "#8B2626"
+                    }).then(() => {
+                        window.location.reload()
+                    });
+                }
+        
+                if (!isIn) {
+                    await UserLocalAxios(`ListEntertainment`, "POST", "", body)
+                    Swal.fire({
+                        title: "Adicionado com sucesso!",
+                        icon: "success",
+                        background: "#3A3A3A",
+                        confirmButtonColor: "#228B22",
+                        color: "#FFFFFF",
+                    }).then(() => {
+                        window.location.reload()
+                    });
+                }
+              
+            }
+          });
+    }
+
+    async function getEntertainmentCommment() {
+        const userId = "8c4cbab5-0275-409a-9b84-07cf49623bed"
+        let body: {userId: string, entertainmentId: string} = {userId: userId, entertainmentId: id!}
+        let response = await UserLocalAxios(`Rating/verify`, "POST", "", body)
+        setComment(response?.data)
+    }
+
+    async function getEntertainmentRatings() {        
+        let response = await UserLocalAxios(`Rating/${type}/${id}`, "GET", "")
+        setListComments(response?.data)
+    }
+
+    async function removeRating() {
+        const userId = "8c4cbab5-0275-409a-9b84-07cf49623bed"
+
+        Swal.fire({
+            title: "Deseja remover sua crítica sobre o entretenimento?",
+            showCancelButton: true,
+            confirmButtonText: "Remover",
+            cancelButtonText: `Cancelar`,
+            background: "#3A3A3A",
+            color: "#ffffff",
+            confirmButtonColor: "#8B2626",
+            width: 600
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+                    await UserLocalAxios(`Rating/${userId}/${id}`, "DELETE", "")
+
+                    Swal.fire({
+                        title: "Removido com sucesso!",
+                        icon: "success",
+                        background: "#3A3A3A",
+                        color: "#FFFFFF",
+                        confirmButtonColor: "#8B2626"
+                    }).then(() => {
+                        window.location.reload()
+                    });
+                
+                }
+            })
     }
 
     useEffect(() => {
-        getEntertainment()
+        getEntertainment();
+        getEntertainmentInList();
+        getEntertainmentCommment();
+        getEntertainmentRatings();
     }, [])
 
     useEffect(() => {
@@ -72,7 +242,9 @@ export default function Entertainment() {
 
     useEffect(() => {
         getEntertainment();
-    }, [id])
+    }, [id])     
+    
+    console.log(comment);
     
     
     return (
@@ -80,7 +252,18 @@ export default function Entertainment() {
             <Header />
 
             <div className="entertainment-background"> 
-                <img className="background-img" src={entertainment?.background}/> 
+                <img className="background-img" src={entertainment?.background}/>
+            </div>
+
+            
+            <div className="lists-user">
+                {lists.map((value: listProps) => 
+                    <div 
+                        className={`list list-${value.name}-${value.isIn ? "in" : "out"}`}
+                        onClick={() => addOrRemoveList(value.id, value.isIn)}>
+                        {value.icon}
+                    </div>
+                )}
             </div>
             
             <div className="entertainment-infos">
@@ -101,7 +284,8 @@ export default function Entertainment() {
 
             <div className="entertainmnent-btns">
                 <div className="btn-critic">
-                    <Button
+                    {!comment && (
+                        <Button
                         id="btn-critic"
                         textColor="white"
                         text="Adicionar Crítica"
@@ -109,7 +293,38 @@ export default function Entertainment() {
                         border="white"
                         fontSize="small"
                         icon={<FiPlus />}
+                        onClick={() => setOpenComment(true)}
                         />
+                    )}
+                    {comment && (
+                        <div className="btns-edit">
+                            <div className="btn-excluir">
+                                <Button
+                                id="btn-critic"
+                                textColor="white"
+                                text=""
+                                backgroundColor="red"
+                                border="none"
+                                fontSize="small"
+                                icon={<FaRegTrashCan />}
+                                onClick={removeRating}
+                                />
+                            </div>
+
+                            <div className="btn-edit">
+                                <Button
+                                id="btn-critic"
+                                textColor="black"
+                                text="Editar"
+                                backgroundColor={type!}
+                                border="none"
+                                fontSize="small"
+                                icon={<LiaEdit />}
+                                onClick={() => setOpenComment(true)}
+                                />
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 <div className="entertainment-genres">
@@ -131,9 +346,9 @@ export default function Entertainment() {
                         <div className="entertainment-plataformas">
                             <h1> Plataformas </h1>
                             <div className="plataformas-img">
-                            { entertainment.plataformas.map((platform: any) =>     
-                                <img className="plataforma-icon" src={platform}/>
-                            )}
+                                { entertainment.plataformas.map((platform: any) =>     
+                                    <img className="plataforma-icon" src={platform}/>
+                                )}
                             </div>
                         </div>
                     )}
@@ -225,30 +440,44 @@ export default function Entertainment() {
 
             <div className="ratings">
                 {
-                    lista_comentarios.map((value) => 
+                    listComments.map((value) => 
                         <Comentario
-                            id="asdjnasdjnas"
+                            id={value.id}
                             user="Vinícius Silveira"
-                            typeEntertainment="Filmes"
-                            entertainment="Oppenheimer"
-                            comentario="Lorem ipsum dolor sit amet, consectetur adipiscing elit das asfsafasfasfag sdf afasf saf asfasfas fasdasdsafagsgasfasfgagagasasgagaggas"
-                            rating={4.5}
-                            views={10000}
+                            typeEntertainment={value.typeEntertainment}
+                            entertainment={value.entertainmentName}
+                            comentario={value.comment}
+                            rating={value.numRating}
+                            views={value.views}
                             size="grande"
                         />
                     )
                 }
+                
+                {listComments.length === 0 && (
+                    <p className="text-entertainment-only"> Seja o primeiro a fazer uma crítica sobre esse entretenimento! </p>
+                )}
             </div>
             
         </div>
         
-        <ModalTemporada 
-            open={open}
-            setOpen={setOpen}
-            handleClose={() => setOpen(false)}
-            listEpisodes={listEpisodes ? listEpisodes : []}
-        />
+            <ModalTemporada 
+                open={openTemporada}
+                setOpen={setOpenTemporada}
+                handleClose={() => setOpenTemporada(false)}
+                listEpisodes={listEpisodes ? listEpisodes : []}
+            />
 
+            <ModalRating
+                open={openComment}
+                setOpen={setOpenComment}
+                handleClose={() => setOpenComment(false)}
+                type={comment ? "editar" : "adicionar"}
+                comment={comment ? comment.comment : ""}
+                rating={comment ? comment.numRating : 0}
+                entertainmentName={entertainment?.title!}
+                commentId={comment?.id}
+            />
         </div>
     )
 }

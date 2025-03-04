@@ -1,0 +1,51 @@
+.modal-comentario-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+} 
+
+.modal-user {
+    display: flex;
+    gap: 20px;
+}
+
+.img-perfil-modal {
+    height: 50px;
+    width: 50px;
+    border-radius: 100px;
+    background-color: blueviolet;
+}
+
+.username-modal {
+    font-size: 25px;
+}
+
+.entertainment-modal {
+    font-size: 18px;
+}
+
+.comentario-modal {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.comentario-modal p {
+    width: 1000px;
+    font-size: 25px;
+    font-weight: 100;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.views-modal {
+    margin-top: 10px;
+    color: rgba(255, 255, 255, 0.47);
+    font-weight: 100;
+    font-size: 20px;
+}
+
+.num-rating-modal {
+    margin-top: 10px;
+}
