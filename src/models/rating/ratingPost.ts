@@ -3,5 +3,7 @@ export default interface RatingPost {
     entertainmentId: string,
     numRating: number,
     comment: string,
-    date: string
+    date: string,
+    entertainmentName: string,
+    typeEntertainment: string,
 } 

@@ -23,9 +23,7 @@ function Showcase() {
     const { type } = useParams()
 
     async function getListMovies() {
-      const results = await getShowcase(type!);
-      console.log('resultados:', results);
-      
+      const results = await getShowcase(type!);      
       setListMovies(results);
     }
 

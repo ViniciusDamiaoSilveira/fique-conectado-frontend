@@ -18,6 +18,11 @@
     color: white;
 }
 
+.conectado-undefined {
+    color: #FFBF15;
+    transition: 0.5s;
+}
+
 .conectado-filmes {
     color: #FFBF15;
     transition: 0.5s;

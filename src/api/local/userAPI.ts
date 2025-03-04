@@ -23,5 +23,10 @@ export async function UserLocalAxios(url: string, method: string, token: string 
             : (await axiosInstanceLocal.put(url, body, config))
     }
 
+    if (method == "DELETE") {
+        return (token === null) ? (await axiosInstanceLocal.put(url, body))
+            : (await axiosInstanceLocal.delete(url, config))
+    }
+
 
 }

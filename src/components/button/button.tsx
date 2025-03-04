@@ -8,6 +8,7 @@ interface buttonProps {
     backgroundColor: string,
     fontSize: string,
     icon?: any,
+    onClick?: any,
 }
 
 export default function Button(props: buttonProps) {
@@ -20,7 +21,9 @@ export default function Button(props: buttonProps) {
                 border-${props.border}
                 background-${props.backgroundColor}
                 font-${props.fontSize}`
-            }>
+            }
+            onClick={props.onClick}
+            >
             {props.icon && (
                 <>
                     {props.icon}

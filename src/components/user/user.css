@@ -1,0 +1,19 @@
+.user-container {
+    width: 190px;
+    min-height: 60px;
+    height: fit-content;
+    gap: 15px;
+    display: flex;
+    align-items: center;
+    background-color: #313131;
+    padding-left: 15px;
+}
+
+.user-pic {
+    width: 35px;
+    height: 35px;
+}
+
+.user-username {
+    font-size: 19px;
+}

@@ -3,6 +3,9 @@
     height: 100%;
     background-color: #313131;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .comentario-grande .comentario-text {
@@ -23,7 +26,6 @@
 }
 
 .img-perfil {
-    background-color: grey;
     height: 38px;
     width: 38px;
     border-radius: 100px;
@@ -38,8 +40,16 @@
     font-size: 14px;
 }
 
-.Filmes {
+.filmes {
     color: #FFBF15;
+}
+
+.series {
+    color: #2F64CF;
+}
+
+.jogos {
+    color: #13F54C;
 }
 
 .comentario-text {
@@ -60,4 +70,5 @@
 .comentario-rating {
     padding-left: 15px;
     margin-top: 10px;
+    margin-bottom: 5px;
 }

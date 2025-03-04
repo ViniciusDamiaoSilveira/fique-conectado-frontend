@@ -10,7 +10,7 @@ export default function Header() {
 
     return (
         <div className="header-container">
-            <NavLink to={`/${type}`} className="logo">
+            <NavLink to={`/${type ? type : "filmes"}`} className="logo">
                 <span className='fique'> Fique </span> <span className={`conectado-${type}`}> Conectado</span>
             </NavLink>
 
@@ -19,7 +19,7 @@ export default function Header() {
             </div>
 
             <div className="user-area">
-                <FaUserFriends color='#3a3a3a' size={30}/>
+                <NavLink to={'/search-users'}> <FaUserFriends color='#3a3a3a' size={30}/> </NavLink>
                 <img src="https://lh3.googleusercontent.com/a/ACg8ocLRSHYtUGl6F5IysvxZL1DIegRF-baez1S_fJvjFjF6Be1QDg_C=s288-c-no" alt="" />
             </div>
         </div>
