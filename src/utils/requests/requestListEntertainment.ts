@@ -77,7 +77,6 @@ export async function GetSeries(type_list: string, page: number, genre: selectPr
     }
 
     const result: any = await response.data.results;
-    console.log(result);
     result.map((serie: any) => {
         let img: string; 
         if (serie.poster_path) {

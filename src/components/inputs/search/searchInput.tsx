@@ -6,6 +6,7 @@ interface SearchInputProps {
     value: string, 
     setValue: any,
     icon?: any,
+    type?: string
 }
 
 export default function SearchInput(props: SearchInputProps) {
@@ -13,7 +14,7 @@ export default function SearchInput(props: SearchInputProps) {
         <div className="search-container">
             <input
                 className="search-input"
-                type="text"
+                type={props.type ? props.type : "text"}
                 placeholder={props.placeholder}
                 value={props.value}
                 onChange={(e) => {

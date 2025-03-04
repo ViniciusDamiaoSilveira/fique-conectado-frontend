@@ -1,0 +1,13 @@
+.cadastro-welcome {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.cadastro-welcome h1 {
+    margin-top: 20px;
+    font-size: 45px;
+    font-weight: 500;
+}

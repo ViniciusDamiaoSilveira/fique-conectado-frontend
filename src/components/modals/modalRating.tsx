@@ -10,6 +10,7 @@ import { format } from "date-fns";
 import { UserLocalAxios } from "../../api/local/userAPI";
 import Swal from "sweetalert2";
 import RatingPut from "../../models/rating/ratingPut";
+import { jwtDecode } from "jwt-decode";
 
 interface modalProps {
     open: boolean,
@@ -37,11 +38,20 @@ const style = {
     outline: "none"
 };
 
+interface userProps {
+    id: string,
+    username: string,
+    email: string,
+    profilePic: string,
+}
+
+
 export default function ModalRating(props: modalProps) {
     const { type, id } = useParams();
     const [value, setValue] = useState<number>(0)
     const [comment, setComment] = useState<string>("")
     const [color, setColor] = useState("#FFBF15")    
+    
 
     useEffect(() => {
         if (type == "filmes") setColor("yellow")
@@ -55,13 +65,15 @@ export default function ModalRating(props: modalProps) {
     }, [props])
 
     async function addRating() {
-        const userId = "8c4cbab5-0275-409a-9b84-07cf49623bed"
+        const token = localStorage.getItem("Token");
+        const decode = jwtDecode<userProps>(token!)
+
         let body: RatingPost = {
             comment: comment,
             entertainmentId: id!,
             entertainmentName: props.entertainmentName,
             numRating: value,
-            userId: userId,
+            userId: decode.id!,
             date: format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSX"),
             typeEntertainment: type!,
         }

@@ -45,9 +45,6 @@ export default function VitrineComentario(props: vitrineProps) {
         getCommentsWeek();
     }, [type])
 
-    console.log(comments);
-    
-
     return (
         <div className="vitrine-container">
             <div className="vitrine-text">

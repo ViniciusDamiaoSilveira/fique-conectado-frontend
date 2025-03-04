@@ -72,8 +72,6 @@ export default function ListEntertainment() {
         }
 
         if (type == "jogos") {
-            console.log(genre);
-            
             result = await GetGames(type_list!, (page * 20), genre?.id!)
         }
 
