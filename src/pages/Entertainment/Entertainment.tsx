@@ -20,6 +20,7 @@ import Swal from "sweetalert2";
 import ModalRating from "../../components/modals/modalRating";
 import { LiaEdit } from "react-icons/lia";
 import { FaRegTrashCan } from "react-icons/fa6";
+import { jwtDecode } from "jwt-decode";
 
 
 interface entertainmentProps {
@@ -60,6 +61,14 @@ interface comentariosProps {
     numRating: number,
     comment: string,
     views: number,
+    userId: string,
+}
+
+interface userProps {
+    id: string,
+    username: string,
+    email: string,
+    profilePic: string,
 }
 
 export default function Entertainment() {
@@ -71,6 +80,8 @@ export default function Entertainment() {
     const [comment, setComment] = useState<commentProps>()
     const [openComment, setOpenComment] = useState<boolean>(false)
     const [listComments, setListComments] = useState<comentariosProps[]>([])
+    const [user, setUser] = useState<userProps>()
+
  
  
     async function getEntertainment() {
@@ -97,11 +108,13 @@ export default function Entertainment() {
         setOpenTemporada(true)
     }
 
-    async function getEntertainmentInList() {
-        const userId = "8c4cbab5-0275-409a-9b84-07cf49623bed"
+    async function getEntertainmentInList() {2
+        const token = localStorage.getItem("Token");
+        const decode = jwtDecode<userProps>(token!)
+
         let listUser: listProps[] = [];
 
-        let response = await UserLocalAxios(`List/user/${userId}/${type}`, "GET", "")
+        let response = await UserLocalAxios(`List/user/${decode.id}/${type}`, "GET", "")
 
         let promises = response?.data.map(async (value: listProps) => {  
 
@@ -188,8 +201,10 @@ export default function Entertainment() {
     }
 
     async function getEntertainmentCommment() {
-        const userId = "8c4cbab5-0275-409a-9b84-07cf49623bed"
-        let body: {userId: string, entertainmentId: string} = {userId: userId, entertainmentId: id!}
+        const token = localStorage.getItem("Token");
+        const decode = jwtDecode<userProps>(token!)
+
+        let body: {userId: string, entertainmentId: string} = {userId: decode.id, entertainmentId: id!}
         let response = await UserLocalAxios(`Rating/verify`, "POST", "", body)
         setComment(response?.data)
     }
@@ -200,7 +215,8 @@ export default function Entertainment() {
     }
 
     async function removeRating() {
-        const userId = "8c4cbab5-0275-409a-9b84-07cf49623bed"
+        const token = localStorage.getItem("Token");
+        const decode = jwtDecode<userProps>(token!)
 
         Swal.fire({
             title: "Deseja remover sua crítica sobre o entretenimento?",
@@ -213,7 +229,7 @@ export default function Entertainment() {
             width: 600
           }).then(async (result) => {
             if (result.isConfirmed) {
-                    await UserLocalAxios(`Rating/${userId}/${id}`, "DELETE", "")
+                    await UserLocalAxios(`Rating/${decode.id}/${id}`, "DELETE", "")
 
                     Swal.fire({
                         title: "Removido com sucesso!",
@@ -243,9 +259,6 @@ export default function Entertainment() {
     useEffect(() => {
         getEntertainment();
     }, [id])     
-    
-    console.log(comment);
-    
     
     return (
         <div className="entertainment-container">
@@ -443,7 +456,7 @@ export default function Entertainment() {
                     listComments.map((value) => 
                         <Comentario
                             id={value.id}
-                            user="Vinícius Silveira"
+                            userId={value.userId}
                             typeEntertainment={value.typeEntertainment}
                             entertainment={value.entertainmentName}
                             comentario={value.comment}

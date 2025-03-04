@@ -54,9 +54,6 @@ export default function Comentario(props: comentarioProps) {
     useEffect(() => {
         getUser();
     }, [props])
-    
-    console.log(user?.id);
-    
 
     return (
         <div className={`comentario-container comentario-${props.size}`}

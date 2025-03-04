@@ -28,9 +28,7 @@ function Showcase() {
     }
 
     useEffect(() => {
-        getListMovies()
-        console.log(listMovies);
-        
+        getListMovies()        
     }, [])
 
     useEffect(() => {

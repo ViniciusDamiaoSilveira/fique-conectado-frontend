@@ -45,7 +45,7 @@
 
 .user-area {
     height: 45px;
-    width: 100px;
+    width: 150px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -56,5 +56,9 @@
     height: 45px;
     width: 45px;
     border-radius: 100px;
+}
+
+.user-area img:hover {
+    opacity: 55;
 }
 

@@ -39,9 +39,6 @@ export async function getCategories(type: string) {
             const name = (await axios.post(`${GOOGLE_URL}key=${GOOGLE_KEY}&source=${from}&target=${to}&q=${text}`)).data.data.translations[0].translatedText
             result.push({id: value.id, name: name})       
         })
-
-        console.log(result);
-        
     }
     
     return result
