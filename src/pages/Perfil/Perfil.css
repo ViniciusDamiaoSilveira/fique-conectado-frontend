@@ -1,0 +1,116 @@
+.perfil-infos {
+    width: calc(100% - 25px);
+    height: 100%;
+    display: flex;
+    margin-left: 25px;
+    margin-top: 50px;
+    gap: 20px;
+}
+
+.perfil-img {
+    height: 150px;
+    width: 150px;
+    border-radius: 100px;
+}
+
+.perfil-img img {
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 100px;
+}
+
+.perfil-pessoal img:hover {
+    opacity: 0.55;
+}
+
+.perfil-texts {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.perfil-username h1{
+    width: 100%;
+    color: white;
+    font-size: 50px;
+}
+
+.perfil-info {
+    display: flex;
+    gap: 80px;
+}
+
+.perfil-stats {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    color: white;
+    font-size: 30px;
+    font-weight: 200;
+}
+
+.perfil-body {
+    width: calc(100% - 25px);
+    margin-left: 25px;
+    margin-top: 100px;
+    display: flex;
+}
+
+.criticas-text {
+    color: white;
+}
+
+.perfil-criticas {
+    position: relative;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.lists-perfil {
+    position: relative;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-top: 58px;
+}
+
+.list-user {
+    height: 60px;
+    width: 300px;
+    background-color: #313131;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-left: 25px;
+}
+
+.list-user h1 {
+    font-size: 22px;
+}
+
+.icon-list {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-favorito {
+    border: 2px solid #EB8817;
+}
+
+.icon-curtido {   
+    border: 2px solid #2F64CF;
+}
+
+.icon-nao {
+    border: 2px solid #8B2626;
+}

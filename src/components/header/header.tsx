@@ -9,6 +9,7 @@ import { LOCAL_IMG } from '../../utils/constants'
 import profilePic from "../../images/userPic.png"
 import { RiLogoutBoxLine } from 'react-icons/ri'
 import Swal from 'sweetalert2'
+import { UserLocalAxios } from '../../api/local/userAPI'
 
 interface userProps {
     id: string,
@@ -22,11 +23,16 @@ export default function Header() {
     const [searchMovie, setSearchMovie] = useState<string>('')
     const [user, setUser] = useState<userProps>()
 
+    async function getUser(id: string) {
+        let response = await UserLocalAxios(`User/${id}`, "GET", "")
+        setUser(response?.data)
+    }
+
     useEffect(() => {
         if (localStorage.getItem("Token")) {
             const token = localStorage.getItem("Token");
             const decode = jwtDecode<userProps>(token!)
-            setUser(decode);
+            getUser(decode.id)
         }
     }, [])
 
@@ -60,11 +66,21 @@ export default function Header() {
                 </div>
             )}
 
-            <div className="user-area">
-                <NavLink to={'/pesquisar-usuarios'}> <FaUserFriends color='#3a3a3a' size={30}/> </NavLink>
-                <img src={user?.profilePic ? `${LOCAL_IMG}${user.profilePic}` : profilePic} alt="" />
-                <RiLogoutBoxLine style={{ cursor: 'pointer' }} onClick={Logout} color='#3a3a3a' size={30}/>
-            </div>
+            {user ? (
+                <div className="user-area">
+                    <NavLink to={'/pesquisar-usuarios'}> <FaUserFriends color='#3a3a3a' size={30}/> </NavLink>
+                    <NavLink to={`/perfil/${user.id}`}> <img src={user?.profilePic ? `${LOCAL_IMG}${user.profilePic}` : profilePic} alt="" /> </NavLink>
+                    <RiLogoutBoxLine style={{ cursor: 'pointer' }} onClick={Logout} color='#3a3a3a' size={30}/>
+                </div>
+            ) : (
+                <div className='login-home'>
+                    <NavLink to={"/login"}> <p className='login-text'> Login </p> </NavLink> 
+
+                    <NavLink to={"/cadastro"} className='cadastro-text'>
+                        Cadastre-se
+                    </NavLink>
+                </div>
+            )}
         </div>
     )
 }

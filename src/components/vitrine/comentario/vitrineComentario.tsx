@@ -69,6 +69,7 @@ export default function VitrineComentario(props: vitrineProps) {
                                     <Comentario
                                         id={value.id}
                                         userId={value.userId}
+                                        entertainmentId={value.entertainmentId}
                                         typeEntertainment={value.typeEntertainment}
                                         entertainment={value.entertainmentName}
                                         comentario={value.comment}
