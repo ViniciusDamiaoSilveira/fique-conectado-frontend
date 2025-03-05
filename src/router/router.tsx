@@ -5,6 +5,7 @@ import ListEntertainment from "../pages/ListEntertainment/ListEntertainment";
 import SearchUsers from "../pages/SearchUsers/searchUsers";
 import Login from "../pages/Login/Login";
 import Cadastro from "../pages/Cadastro/Cadastro";
+import Perfil from "../pages/Perfil/Perfil";
 
 const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
     {
         path: '/pesquisar-usuarios',
         element: <SearchUsers />
+    },
+    {
+        path: '/perfil/:userId',
+        element: <Perfil />
     },
     {
         path: '/cadastro',

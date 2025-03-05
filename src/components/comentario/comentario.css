@@ -33,11 +33,17 @@
 
 .user-name {
     font-size: 20px;
-    color: white;
+    color: white !important;
+    text-decoration: none;
+}
+
+.user-name h1 {
+    text-decoration: none;
 }
 
 .entertainment-info {
     font-size: 14px;
+    text-decoration: none;
 }
 
 .filmes {

@@ -8,11 +8,13 @@ import { UserLocalAxios } from "../../api/local/userAPI";
 import { LOCAL_IMG } from "../../utils/constants";
 
 import UserPic from "../../images/userPic.png"
+import { NavLink } from "react-router-dom";
 
 interface comentarioProps {
     id: string,
     userId: string,
     rating: number,
+    entertainmentId: string,
     typeEntertainment: string,
     entertainment: string,
     comentario: string,
@@ -65,9 +67,14 @@ export default function Comentario(props: comentarioProps) {
                 <img src={user?.profilePic ? `${LOCAL_IMG}${user.profilePic}` : UserPic} className="img-perfil" /> 
                 
                 <div className="comment-info">
-                    <h1 className="user-name"> {user?.username} </h1>
-                    <p className={`entertainment-info ${props.typeEntertainment}`}> 
+                    <NavLink to={`/perfil/${props.userId}`} style={{ textDecoration: "none" }}> 
+                        <p className="user-name"> {user?.username} </p> 
+                    </NavLink>
+                    
+                    <NavLink to={`/${props.typeEntertainment}/${props.entertainmentId}`} style={{ textDecoration: "none" }}> 
+                        <p className={`entertainment-info ${props.typeEntertainment}`}> 
                         {props.typeEntertainment.charAt(0).toUpperCase() + props.typeEntertainment.slice(1)} - {props.entertainment} </p>
+                    </NavLink>
                 </div>
             </div>
 

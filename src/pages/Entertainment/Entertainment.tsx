@@ -57,6 +57,7 @@ interface comentariosProps {
     id: string,
     name: string,
     typeEntertainment: string,
+    entertainmentId:string,
     entertainmentName: string,
     numRating: number,
     comment: string,
@@ -128,7 +129,7 @@ export default function Entertainment() {
                     icon: <BiSolidDislike size={21} color={`${exist?.data ? "#FFFFFF" : colorIcon}`}/>, 
                     isIn: exist?.data})                
             } else if (value.name == "Curtidos") {
-                let colorIcon = "#1B315C"
+                let colorIcon = "#2F64CF"
                 listUser.push({
                     id: value.id, 
                     name: value.name, 
@@ -250,6 +251,11 @@ export default function Entertainment() {
         getEntertainmentInList();
         getEntertainmentCommment();
         getEntertainmentRatings();
+        if (localStorage.getItem("Token")) {
+            const token = localStorage.getItem("Token");
+            const decode = jwtDecode<userProps>(token!)
+            setUser(decode)
+        }
     }, [])
 
     useEffect(() => {
@@ -296,49 +302,51 @@ export default function Entertainment() {
             </div>
 
             <div className="entertainmnent-btns">
-                <div className="btn-critic">
-                    {!comment && (
-                        <Button
-                        id="btn-critic"
-                        textColor="white"
-                        text="Adicionar Crítica"
-                        backgroundColor="transparent"
-                        border="white"
-                        fontSize="small"
-                        icon={<FiPlus />}
-                        onClick={() => setOpenComment(true)}
-                        />
-                    )}
-                    {comment && (
-                        <div className="btns-edit">
-                            <div className="btn-excluir">
-                                <Button
-                                id="btn-critic"
-                                textColor="white"
-                                text=""
-                                backgroundColor="red"
-                                border="none"
-                                fontSize="small"
-                                icon={<FaRegTrashCan />}
-                                onClick={removeRating}
-                                />
-                            </div>
+                {user && (
+                    <div className="btn-critic">
+                        {!comment && (
+                            <Button
+                            id="btn-critic"
+                            textColor="white"
+                            text="Adicionar Crítica"
+                            backgroundColor="transparent"
+                            border="white"
+                            fontSize="small"
+                            icon={<FiPlus />}
+                            onClick={() => setOpenComment(true)}
+                            />
+                        )}
+                        {comment && (
+                            <div className="btns-edit">
+                                <div className="btn-excluir">
+                                    <Button
+                                    id="btn-critic"
+                                    textColor="white"
+                                    text=""
+                                    backgroundColor="red"
+                                    border="none"
+                                    fontSize="small"
+                                    icon={<FaRegTrashCan />}
+                                    onClick={removeRating}
+                                    />
+                                </div>
 
-                            <div className="btn-edit">
-                                <Button
-                                id="btn-critic"
-                                textColor="black"
-                                text="Editar"
-                                backgroundColor={type!}
-                                border="none"
-                                fontSize="small"
-                                icon={<LiaEdit />}
-                                onClick={() => setOpenComment(true)}
-                                />
+                                <div className="btn-edit">
+                                    <Button
+                                    id="btn-critic"
+                                    textColor="black"
+                                    text="Editar"
+                                    backgroundColor={type!}
+                                    border="none"
+                                    fontSize="small"
+                                    icon={<LiaEdit />}
+                                    onClick={() => setOpenComment(true)}
+                                    />
+                                </div>
                             </div>
-                        </div>
-                    )}
-                </div>
+                        )}
+                    </div>
+                )}
 
                 <div className="entertainment-genres">
                     {entertainment?.genres && (
@@ -457,6 +465,7 @@ export default function Entertainment() {
                         <Comentario
                             id={value.id}
                             userId={value.userId}
+                            entertainmentId={value.entertainmentId}
                             typeEntertainment={value.typeEntertainment}
                             entertainment={value.entertainmentName}
                             comentario={value.comment}
